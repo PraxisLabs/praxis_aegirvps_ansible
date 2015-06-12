@@ -1,0 +1,24 @@
+#
+# MANAGED IN ANSIBLE, DO NOT MODIFY
+#
+ExtendedStatus on
+# hide this a little bit from "normal" accesses
+Listen 8666
+NameVirtualHost *:8666
+<VirtualHost *:8666>
+        ServerName soderdev
+        <Directory />
+                Order deny,allow
+                Deny from all
+        </Directory>
+        <Location /server-status>
+                SetHandler server-status
+                Order deny,allow
+                Deny from all
+
+                Allow from 127.0.0.1
+                Allow from localhost
+        </Location>
+        ErrorLog /var/log/apache2/munin-error.log
+        CustomLog /var/log/apache2/munin-access.log combined
+</VirtualHost>
