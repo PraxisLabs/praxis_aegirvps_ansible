@@ -1,0 +1,3 @@
+---
+  - name: Start munin-node
+    service: name=munin-node state=started

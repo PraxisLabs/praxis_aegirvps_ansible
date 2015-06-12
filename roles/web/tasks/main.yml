@@ -1,0 +1,16 @@
+---
+  - name: Install Apache
+    apt: pkg=apache2 state=installed update_cache=true
+    register: apache2installed
+    notify:
+     - Start Apache
+
+  - name: Install PHP packages
+    apt: pkg={{item}} state=installed update_cache=true
+    with_items:
+      - php5
+      - php5-curl
+    when: apache2installed|success
+    register: php5installed
+    notify:
+     - Start Apache

@@ -1,0 +1,10 @@
+---
+  - name: Install munin-node
+    apt: pkg={{item}} state=installed update_cache=true
+    with_items:
+      - munin-node
+      - munin-plugins-core
+      - munin-plugins-extra
+    register: muninnodeinstalled
+    notify:
+     - Start munin-node
