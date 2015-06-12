@@ -3,6 +3,6 @@
   roles:
     - web
 
-- hosts: in-munin
+- hosts: munin-hosts
   roles:
-    - munin
+    - munin-node

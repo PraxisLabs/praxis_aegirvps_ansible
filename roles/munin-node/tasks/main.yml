@@ -9,7 +9,7 @@
     # if there's no Apache, there's nothing to monitor
     when: apache2installed|success
     notify:
-     - Start munin-node
+      - Start munin-node
 
   - name: Create Apache vhost
     when: muninnodeinstalled|success
@@ -29,3 +29,18 @@
     file: src=/etc/apache2/sites-available/munin-stats dest=/etc/apache2/sites-enabled/munin-stats mode=775 owner=root group=root state=link
     notify:
       - Reload Apache
+
+  - name: Enable extra munin plugins
+    file: src=/usr/share/munin/plugins/{{ item }} dest=/etc/munin/plugins/{{ item }} state=link
+    with_items:
+      - apache_accesses
+      - apache_volume
+      - apt
+      - apt_all
+      - mysql_
+      - mysql_queries
+      - mysql_threads
+      - mysql_slowqueries
+    when: muninnodeinstalled|success
+    notify:
+      - Restart munin-node
