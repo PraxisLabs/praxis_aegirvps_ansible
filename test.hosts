@@ -1,12 +1,15 @@
 [web]
-ans-client.local ansible_ssh_host=192.168.10.60 ansible_ssh_port=22322
+ans-client.local ansible_ssh_host=192.168.10.60
+ans-client2.local ansible_ssh_host=192.168.10.70
+ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
 
 [aegir:children]
-web
+#web
 
 [nagios-hosts]
 [munin-hosts]
 ans-client.local
+ans-client2.local
 
 [munin-servers]
-ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
+ans-server.local
