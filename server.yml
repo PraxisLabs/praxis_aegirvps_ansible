@@ -6,3 +6,8 @@
 - hosts: munin-hosts
   roles:
     - munin-node
+
+- hosts: munin-servers
+  roles:
+    - web
+    - munin-server

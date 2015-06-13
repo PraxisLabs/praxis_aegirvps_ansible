@@ -18,9 +18,15 @@
     notify:
       - Restart munin-node
 
-  - name: Create munin node config
+  - name: Create munin plugin config
     when: muninnodeinstalled|success
     template: src=munin-node dest=/etc/munin/plugin-conf.d/munin-node mode=775 owner=root group=root
+    notify:
+      - Restart munin-node
+
+  - name: Create munin node config
+    when: muninnodeinstalled|success
+    template: src=munin-node.conf.j2 dest=/etc/munin/munin-node.conf mode=775 owner=root group=root
     notify:
       - Restart munin-node
 
