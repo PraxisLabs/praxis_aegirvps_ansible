@@ -5,6 +5,11 @@
       - munin-node
       - munin-plugins-core
       - munin-plugins-extra
+      # These perl libraries are needed for various munin plugins
+      - libwww-perl
+      - libdbd-mysql-perl
+      - libcache-cache-perl
+      - libcache-perl
     register: muninnodeinstalled
     # if there's no Apache, there's nothing to monitor
     when: apache2installed|success
@@ -43,7 +48,6 @@
       - apache_volume
       - apt
       - apt_all
-      - mysql_
       - mysql_queries
       - mysql_threads
       - mysql_slowqueries
