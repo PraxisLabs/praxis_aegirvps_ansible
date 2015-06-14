@@ -1,5 +1,5 @@
 ---
-- hosts: web
+- hosts: all
   roles:
     - web
 
@@ -9,5 +9,4 @@
 
 - hosts: munin-servers
   roles:
-    - web
     - munin-server
