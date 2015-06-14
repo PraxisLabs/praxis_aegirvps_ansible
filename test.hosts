@@ -1,6 +1,7 @@
 [web]
 ans-client.local ansible_ssh_host=192.168.10.60
 ans-client2.local ansible_ssh_host=192.168.10.70
+ans-client3.local ansible_ssh_host=192.168.10.80
 ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
 
 [aegir:children]
@@ -10,6 +11,7 @@ ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
 [munin-hosts]
 ans-client.local
 ans-client2.local
+ans-client3.local
 
 [munin-servers]
 ans-server.local
