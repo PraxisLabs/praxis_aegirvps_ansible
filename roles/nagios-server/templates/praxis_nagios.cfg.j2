@@ -1,0 +1,43 @@
+#
+# MANAGED IN ANSIBLE, DO NOT MODIFY
+#
+# This file contains all the nagios hosts and the associated services
+
+{% for host in groups['nagios-hosts'] %}
+define host{
+        use             generic-host
+        host_name       {{ hostvars[host]['inventory_hostname'] }}
+}
+
+{% endfor %}
+
+# check that disks are okay
+define service {
+        hostgroup_name                  all
+        use                             generic-service
+        service_description             Disk Space
+        check_command                   check_nrpe_noarg!check_disk_custom
+}
+
+# check that load is okay
+define service {
+        hostgroup_name                  all
+        use                             generic-service
+        service_description             Server Load
+        check_command                   check_nrpe_noarg!check_load_custom
+}
+
+# check HTTP status
+define service {
+        hostgroup_name                  all
+        use                             generic-service
+        service_description             HTTP-Server
+        check_command                   check_http
+}
+
+# this command runs a program $ARG1$ with only one argument
+define command {
+ command_name check_nrpe_noarg
+ command_line /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+}
+

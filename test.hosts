@@ -8,6 +8,12 @@ ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
 #web
 
 [nagios-hosts]
+ans-client.local
+ans-server.local
+
+[nagios-servers]
+ans-server.local
+
 [munin-hosts]
 ans-client.local
 ans-client2.local

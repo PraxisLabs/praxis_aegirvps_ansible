@@ -12,3 +12,11 @@
   roles:
     - web
     - munin-server
+
+- hosts: nagios-servers
+  roles:
+    - nagios-server
+
+- hosts: nagios-hosts
+  roles:
+    - nagios-host
