@@ -1,14 +1,12 @@
 ---
-- hosts: all
+- hosts: aegir2
   roles:
-    - web
+    - aegir2
 
 - hosts: munin-hosts
   roles:
-    - web
     - munin-node
 
 - hosts: munin-servers
   roles:
-    - web
     - munin-server
