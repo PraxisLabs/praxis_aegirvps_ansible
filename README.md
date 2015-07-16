@@ -25,3 +25,8 @@ TODO / What this playbook doesn't do yet
 * Automatically deploy platforms
 * Install and configure nagios (see nagios branch)
 * Install specific PHP version?
+
+What this does not do
+---------------------
+
+* Create valid credentials for the nagios frontend
