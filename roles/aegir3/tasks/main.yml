@@ -1,4 +1,25 @@
 ---
+  - name: Making sure the drush package is removed (aegir3 installs through composer)
+    apt: pkg=drush state=absent
+
+  - name: Aegir installed test
+    shell: "[ -d /var/aegir/config ]"
+    ignore_errors: True
+    register: aegir_user_exists
+
+  - name: Preseed Aegir hostmaster site url
+    shell: echo "debconf aegir/site string {{ inventory_hostname }}" | debconf-set-selections
+    when: aegir_user_exists|failed
+  - name: Preseed Aegir hostmaster db_host
+    shell: echo "debconf aegir/db_host string 127.0.0.1" | debconf-set-selections
+    when: aegir_user_exists|failed
+  - name: Preseed Aegir hostmaster db_user
+    shell: echo "debconf aegir/db_user string root" | debconf-set-selections
+    when: aegir_user_exists|failed
+  - name: Preseed Aegir hostmaster db_password
+    shell: echo "debconf aegir/db_password password `cat /root/.mysql.root`" | debconf-set-selections
+    when: aegir_user_exists|failed
+
   - name: Install apt repo management packages
     apt: pkg={{ item }} state=installed update_cache=true
     with_items:

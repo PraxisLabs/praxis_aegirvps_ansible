@@ -1,3 +1,4 @@
 ---
 dependencies:
-  - { role: web }
+  - { role: apache2 }
+  - { role: mysql-server }

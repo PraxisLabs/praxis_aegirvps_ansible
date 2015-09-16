@@ -1,9 +1,39 @@
 ---
+  - apt: pkg=pwgen state=installed
+
+  # Install server using a preseed file to set the root password
+  # 1) Check is MySQL Server is already installed. If so, do not set preseed file
+  - name: MySQL | Check for previous installation
+    shell: "[ -f /usr/sbin/mysqld ]"
+    ignore_errors: True
+    register: mysqld_exists
+
+  - name: Generate a root password for MySQL
+    shell: pwgen 15 1 > /root/.mysql.root
+    when: mysqld_exists|failed
+
+  # 2) Preseed install options
+  - name: Preseed MySQL server root password 1 of 2
+    shell: echo "mysql-server mysql-server/root_password password `cat /root/.mysql.root`" | debconf-set-selections
+    when: mysqld_exists|failed
+
+  - name: Preseed MySQL server root password 2 of 2
+    shell: echo "mysql-server mysql-server/root_password_again password `cat /root/.mysql.root`" | debconf-set-selections
+    when: mysqld_exists|failed
+
+  # 3) Install MySQL server and cllient
   - name: Install MySQL
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
       - mysql-server
       - mysql-client
+    when: mysqld_exists|failed
     register: mysqlinstalled
-   notify:
-     - Start MySQL
+    notify:
+      - Start MySQL
+
+  # todo
+  # 4) Cleanup
+  # - name: MySQL | Delete mysql.seed file
+  #   command: /bin/rm /root/mysql.seed
+  #   when_failed: $mysqld_exists
