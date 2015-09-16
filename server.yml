@@ -1,8 +1,4 @@
 ---
-- hosts: aegir2
-  roles:
-    - aegir2
-
 - hosts: aegir3
   roles:
     - aegir3
