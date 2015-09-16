@@ -1,0 +1,25 @@
+---
+  - name: Install apt repo management packages
+    apt: pkg={{ item }} state=installed update_cache=true
+    with_items:
+      - debian-keyring
+      - debian-archive-keyring
+      - python-software-properties
+    register: basicaptpackagesinstalled
+
+  - name: Install aegir3 repo apt key
+    apt_key: url=http://debian.aegirproject.org/key.asc state=present
+    when: basicaptpackagesinstalled|success
+    register: aegir3keyinstalled
+
+  - name: Install aegir3 repo
+    apt_repository: repo='deb http://debian.aegirproject.org stable main' state=present
+    when: aegir3keyinstalled|success
+    register: aegir3repoinstalled
+
+  - name: Install Aegir3
+    apt: pkg=aegir3 state=installed update_cache=true
+    register: aegir3installed
+    when: aegir3keyinstalled|success
+    notify:
+      - Restart Apache

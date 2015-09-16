@@ -3,6 +3,10 @@
   roles:
     - aegir2
 
+- hosts: aegir3
+  roles:
+    - aegir3
+
 - hosts: munin-hosts
   roles:
     - munin-node
