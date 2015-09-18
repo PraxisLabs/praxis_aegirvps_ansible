@@ -1,5 +1,5 @@
 ---
-  - name: Install rsync
+  - name: Install required packages
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
       - rsync
@@ -8,10 +8,31 @@
   - group: name=aegir state=present
 
   - user: name=aegir group=aegir home=/var/aegir shell=/bin/bash
+  - authorized_key: user=aegir key="{{ aegirPubKey }}"
 
   - name: Create mod-rewrite symlink
     file: src=/etc/apache2/mods-available/rewrite.load dest=/etc/apache2/mods-enabled/rewrite.load state=link
     notify: Restart Apache
+
+  # This file is the default MySQL config with no bind address
+  - name: Create MySQL config
+    when: mysqlinstalled|success
+    template: src=mysql-my.cnf.j2 dest=/etc/mysql/my.cnf mode=755 owner=root group=root
+    notify:
+      - Restart MySQL
+
+  - name: Generate a password for a new DB user
+    shell: pwgen 15 1 > /var/aegir/.mysql.pass
+    when: mysqld_exists|failed
+
+  # TODO: Restrict aegir mysql user to Aegir hub
+  - name: Create the aegir MySQL DB user
+    shell: mysql -u root -p`cat /root/.mysql.root` -e "CREATE USER 'aegir'@'{{ aegirHub }}' IDENTIFIED BY '`cat /var/aegir/.mysql.pass`';" 
+    when: mysqld_exists|failed
+
+  - name: Grant priviliges to the aegir user
+    shell: mysql -u root -p`cat /root/.mysql.root` -e "GRANT ALL PRIVILEGES ON *.* TO 'aegir'@'{{ aegirHub }}' WITH GRANT OPTION;" 
+    when: mysqld_exists|failed
 
 ## TODO:
 # - Unbind mysql
