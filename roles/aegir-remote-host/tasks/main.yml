@@ -7,8 +7,11 @@
 
   - group: name=aegir state=present
 
-  - user: name=aegir group=aegir home=/var/aegir shell=/bin/bash
+  - user: name=aegir groups="aegir,www-data" home=/var/aegir shell=/bin/bash
   - authorized_key: user=aegir key="{{ aegirPubKey }}"
+
+  # Don't do this on full-blown aegir nodes! This breaks the security that Aegir would try to implement.
+  - user: name=www-data groups="aegir,www-data"
 
   - name: Create mod-rewrite symlink
     file: src=/etc/apache2/mods-available/rewrite.load dest=/etc/apache2/mods-enabled/rewrite.load state=link
@@ -21,6 +24,9 @@
     notify:
       - Restart MySQL
 
+  - name: Give aegir user sudo apache2ctl
+    template: src=sudo-aegir dest=/etc/sudoers.d/aegir mode=440 owner=root group=root
+
   - name: Generate a password for a new DB user
     shell: pwgen 15 1 > /var/aegir/.mysql.pass
     when: mysqld_exists|failed
@@ -30,7 +36,7 @@
     shell: mysql -u root -p`cat /root/.mysql.root` -e "CREATE USER 'aegir'@'{{ aegirHub }}' IDENTIFIED BY '`cat /var/aegir/.mysql.pass`';" 
     when: mysqld_exists|failed
 
-  - name: Grant priviliges to the aegir user
+  - name: Grant privileges to the aegir user
     shell: mysql -u root -p`cat /root/.mysql.root` -e "GRANT ALL PRIVILEGES ON *.* TO 'aegir'@'{{ aegirHub }}' WITH GRANT OPTION;" 
     when: mysqld_exists|failed
 
