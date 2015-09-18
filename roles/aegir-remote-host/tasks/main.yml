@@ -1,0 +1,20 @@
+---
+  - name: Install rsync
+    apt: pkg={{item}} state=installed update_cache=true
+    with_items:
+      - rsync
+      - php5-mysql
+
+  - group: name=aegir state=present
+
+  - user: name=aegir group=aegir home=/var/aegir shell=/bin/bash
+
+  - name: Create mod-rewrite symlink
+    file: src=/etc/apache2/mods-available/rewrite.load dest=/etc/apache2/mods-enabled/rewrite.load state=link
+    notify: Restart Apache
+
+## TODO:
+# - Unbind mysql
+# - Create mysql user
+# - aegir user authorized_keys ?
+# - aegir apache2 symlink? can't create before server does its thing with rsync...

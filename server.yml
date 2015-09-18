@@ -1,7 +1,15 @@
 ---
+- hosts: mysql-servers
+  roles:
+    - mysql-server
+
 - hosts: aegir3
   roles:
     - aegir3
+
+- hosts: aegir-remote-hosts
+  roles:
+    - aegir-remote-host
 
 - hosts: munin-hosts
   roles:
