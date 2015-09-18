@@ -1,4 +1,13 @@
 ---
+  # What this does:
+  # - Remove mysql bind address
+  # - Create an aegir user with specified authorized_key
+  # - Create a mysql superuser limited to specified host
+  # - Allows aegir user to restart apache queue
+  #
+  # TODO:
+  # - aegir apache2 symlink? can't create before "upstream" server does its thing with rsync...
+
   - name: Install required packages
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
@@ -40,8 +49,3 @@
     shell: mysql -u root -p`cat /root/.mysql.root` -e "GRANT ALL PRIVILEGES ON *.* TO 'aegir'@'{{ aegirHub }}' WITH GRANT OPTION;" 
     when: mysqld_exists|failed
 
-## TODO:
-# - Unbind mysql
-# - Create mysql user
-# - aegir user authorized_keys ?
-# - aegir apache2 symlink? can't create before server does its thing with rsync...
