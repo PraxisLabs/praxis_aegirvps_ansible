@@ -1,4 +1,8 @@
 ---
+- hosts: all
+  roles:
+    - common
+
 - hosts: mysql-servers
   roles:
     - mysql-server
