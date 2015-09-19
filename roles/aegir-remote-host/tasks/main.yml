@@ -12,6 +12,9 @@
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
       - rsync
+      - php5-curl
+      - php5-fpm
+      - php5-gd
       - php5-mysql
 
   - group: name=aegir state=present
