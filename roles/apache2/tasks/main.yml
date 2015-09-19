@@ -8,8 +8,12 @@
   - name: Install PHP packages
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
+      - curl
       - php5
       - php5-curl
+      - php5-fpm
+      - php5-gd
+      - php5-mysql
     when: apache2installed|success
     register: php5installed
     notify:
