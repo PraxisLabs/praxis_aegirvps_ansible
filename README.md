@@ -1,6 +1,8 @@
 Usage
 -----
 
+This is our AegirVPS playbook.
+
 Before using:
 
 1. Install ansible
@@ -18,14 +20,23 @@ This playbook installs Aegir on clients using the debian package. By default, th
 
 There's also an aegir-remote-host role, which does most of [this](http://community.aegirproject.org/node/30/) for remote apache/mysql servers for Aegir.
 
+Current restrictions for auto-deploy
+------------------------------------
+
+* The platform must use a makefile.
+* The makefile must be on GitHub.
+* You need an RSS or atom feed for releases.
+
 TODO / What this playbook doesn't do yet
 ----------------------------------------
 
 * Set hostname (not sure if this is wise)
-* Automatically deploy platforms
 * Install specific PHP version?
+* Allow deploying without makefiles for eg https://github.com/pressflow/7
 
 What this does not do
 ---------------------
 
 * Create valid credentials for the nagios frontend
+
+Developped by Praxis Labs Coop : http://praxis.coop

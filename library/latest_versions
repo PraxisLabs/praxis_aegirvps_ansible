@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source $1
+
+FEED=$platform_feed
+LATEST_VERSION=`rsstail -N -1 -n1 -u $FEED  | sed 's/.* //g'`
+
+cat <<EOF
+{
+  "ansible_facts" : {
+    "platform_release_number" : "$LATEST_VERSION"
+  }
+}
+EOF

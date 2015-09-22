@@ -30,3 +30,11 @@
 - hosts: nagios-hosts
   roles:
     - nagios-host
+
+- hosts: auto-deploy-goo
+  roles:
+    - { role: auto-deploy, platform_name: getopenoutreach, makefiles_repo: "https://github.com/PraxisLabs/getopenoutreach_makefiles.git", makefile_name: getopenoutreach.make, release_feed: "https://github.com/PraxisLabs/getopenoutreach_makefiles/releases.atom", tags: auto-deploy }
+
+- hosts: auto-deploy-drupal7-basic
+  roles:
+    - { role: auto-deploy, platform_name: drupal7-basic, makefiles_repo: "https://github.com/PraxisLabs/drupal7-basic.git", makefile_name: drupal-platform.make, release_feed: "https://github.com/PraxisLabs/drupal7-basic/tags.atom", tags: auto-deploy }

@@ -1,0 +1,38 @@
+---
+  - name: Install required packages
+    apt: pkg={{item}} state=installed update_cache=false
+    with_items:
+      - rsstail
+
+  - name: gather facts (versions)
+    action: latest_versions platform_feed={{ release_feed }}
+    always_run: True
+
+  - debug: msg="Platform {{ platform_name }}. Feed {{ release_feed }}. Version {{ platform_release_number }}."
+
+
+  # Check whether most recent platform is already deployed
+  - name: Check if latest platform is deployed
+    # This displays the last RSS/atom feed item
+    shell: "[ -d /var/aegir/platforms/{{ platform_name }}-{{ platform_release_number }} ]"
+    ignore_errors: True
+    always_run: True
+    register: platform_exists
+
+  # This creates the makefiles with root ownership. That might be a good thing?
+  # TODO: Should we use force?
+  - name: Clone latest makefiles
+    git: repo={{ makefiles_repo }} dest=/var/aegir/makefiles/{{ platform_name }}_makefiles version="{{ platform_release_number }}"
+    when: platform_exists|failed
+
+  - name: Create latest platform
+    shell: sudo -u aegir drush make /var/aegir/makefiles/{{ platform_name }}_makefiles/{{ makefile_name }} /var/aegir/platforms/{{ platform_name }}-{{ platform_release_number }}
+    when: platform_exists|failed
+
+  - name: provision-save the platform
+    shell: sudo -u aegir drush --root=/var/aegir/platforms/{{ platform_name }}-{{ platform_release_number }} provision-save @platform_{{ platform_name }}-{{ platform_release_number }} --context_type=platform --makefile={{ makefile_name }}
+    when: platform_exists|failed
+
+  - name: Import the platform into hostmaster
+    shell: sudo -u aegir drush @hostmaster hosting-import @platform_{{ platform_name }}-{{ platform_release_number }}
+    when: platform_exists|failed

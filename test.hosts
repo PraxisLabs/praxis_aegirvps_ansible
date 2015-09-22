@@ -11,6 +11,12 @@ ans-client2.local aegirHub=192.168.10.40 aegirPubKey='ssh-rsa AAAAB3NzaC1yc2EAAA
 ans-server.local
 ans-client.local
 
+[auto-deploy-goo]
+ans-client.local
+
+[auto-deploy-drupal7-basic]
+ans-client.local
+
 [nagios-hosts]
 ans-client.local
 ans-server.local
