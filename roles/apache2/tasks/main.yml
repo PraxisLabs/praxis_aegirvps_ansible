@@ -11,7 +11,6 @@
       - curl
       - php5
       - php5-curl
-      - php5-fpm
       - php5-gd
       - php5-mysql
     when: apache2installed|success
