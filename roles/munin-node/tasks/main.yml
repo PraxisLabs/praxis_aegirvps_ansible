@@ -37,7 +37,7 @@
 
   - name: Enable Apache vhost
     when: apachemuninvhostcreated|success
-    file: src=/etc/apache2/sites-available/munin-stats dest=/etc/apache2/sites-enabled/munin-stats mode=775 owner=root group=root state=link
+    file: src=/etc/apache2/sites-available/munin-stats dest=/etc/apache2/sites-enabled/munin-stats mode=777 owner=root group=root state=link
     notify:
       - Reload Apache
 
