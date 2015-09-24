@@ -16,6 +16,7 @@
     # This displays the last RSS/atom feed item
     shell: "[ -d /var/aegir/platforms/{{ platform_name }}-{{ platform_release_number }} ]"
     ignore_errors: True
+    changed_when: False
     always_run: True
     register: platform_exists
 

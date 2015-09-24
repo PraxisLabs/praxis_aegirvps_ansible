@@ -1,9 +1,7 @@
 ---
-  - name: Making sure the drush package is removed (aegir3 installs through composer)
-    apt: pkg=drush state=absent
-
-  - name: Aegir installed test
+  - name: Check if Aegir is installed
     shell: "[ -d /var/aegir/config ]"
+    changed_when: False
     ignore_errors: True
     register: aegir_user_exists
 
@@ -32,6 +30,8 @@
     apt_key: url=http://debian.aegirproject.org/key.asc state=present
     when: basicaptpackagesinstalled|success
     register: aegir3keyinstalled
+    # Bug in changed status when --check?
+    changed_when: false
 
   - name: Install aegir3 repo
     apt_repository: repo='deb http://debian.aegirproject.org stable main' state=present

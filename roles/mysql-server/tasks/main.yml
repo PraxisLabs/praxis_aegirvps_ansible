@@ -5,6 +5,7 @@
   # 1) Check is MySQL Server is already installed. If so, do not set preseed file
   - name: MySQL | Check for previous installation
     shell: "[ -f /usr/sbin/mysqld ]"
+    changed_when: False
     ignore_errors: True
     register: mysqld_exists
 
