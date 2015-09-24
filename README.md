@@ -30,9 +30,9 @@ Current restrictions for auto-deploy
 TODO / What this playbook doesn't do yet
 ----------------------------------------
 
-* Set hostname (not sure if this is wise)
-* Install specific PHP version?
+* Remove root mysql password seed after Aegir install.
 * Allow deploying without makefiles for eg https://github.com/pressflow/7
+* Install specific PHP version?
 
 What this does not do
 ---------------------
