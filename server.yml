@@ -38,3 +38,7 @@
 - hosts: auto-deploy-drupal7-basic
   roles:
     - { role: auto-deploy, platform_name: drupal7-basic, makefiles_repo: "https://github.com/PraxisLabs/drupal7-basic.git", makefile_name: drupal-platform.make, release_feed: "https://github.com/PraxisLabs/drupal7-basic/tags.atom", tags: auto-deploy }
+
+- hosts: auto-deploy-drupal-commons
+  roles:
+    - { role: auto-deploy, platform_name: drupal-commons, makefiles_repo: "https://github.com/drupalprojects/commons.git", makefile_name: build-commons.make, release_feed: "https://github.com/drupalprojects/commons/tags.atom", tags: auto-deploy }
