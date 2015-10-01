@@ -20,6 +20,8 @@
 
   # Don't do this on full-blown aegir nodes! This breaks the security that Aegir would try to implement.
   - user: name=www-data groups="aegir,www-data"
+    # Bug in adding groups?
+    changed_when: false
 
   - name: Create mod-rewrite symlink
     file: src=/etc/apache2/mods-available/rewrite.load dest=/etc/apache2/mods-enabled/rewrite.load state=link
