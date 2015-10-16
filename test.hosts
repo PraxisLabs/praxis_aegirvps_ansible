@@ -17,6 +17,9 @@ ans-client.local
 [auto-deploy-drupal7-basic]
 ans-client.local
 
+[auto-deploy-openatrium]
+ans-client.local
+
 [nagios-hosts]
 ans-client.local
 ans-server.local
