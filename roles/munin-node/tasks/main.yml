@@ -46,8 +46,6 @@
     with_items:
       - apache_accesses
       - apache_volume
-      - apt
-      - apt_all
       - mysql_queries
       - mysql_threads
       - mysql_slowqueries
