@@ -11,10 +11,6 @@
   roles:
     - aegir3
 
-- hosts: aegir-remote-hosts
-  roles:
-    - aegir-remote-host
-
 - hosts: munin-hosts
   roles:
     - munin-node

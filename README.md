@@ -18,8 +18,6 @@ Notes
 
 This playbook installs Aegir on clients using the debian package. By default, this will install using the hostname as the frontend url. This is just fine for us but might be a problem depending on your use case.
 
-There's also an aegir-remote-host role, which does most of [this](http://community.aegirproject.org/node/30/) for remote apache/mysql servers for Aegir.
-
 Current restrictions for auto-deploy
 ------------------------------------
 
