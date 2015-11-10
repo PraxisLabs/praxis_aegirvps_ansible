@@ -38,3 +38,7 @@
 - hosts: auto-deploy-openatrium
   roles:
     - { role: auto-deploy, platform_name: openatrium, makefiles_repo: "http://git.drupal.org/project/openatrium.git", makefile_name: build-openatrium.make, release_feed: "https://www.drupal.org/node/681432/release/feed", tags: auto-deploy }
+
+- hosts: auto-deploy-civicrm
+  roles:
+    - { role: auto-deploy, platform_name: civicrm, makefiles_repo: "https://github.com/PraxisLabs/civicrm_makefiles.git", makefile_name: build-civicrm.make, release_feed: "https://github.com/PraxisLabs/civicrm_makefiles/tags.atom", tags: auto-deploy }
