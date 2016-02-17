@@ -3,6 +3,7 @@
     apt: pkg={{ item }} state=installed update_cache=true
     with_items:
       - git
-      - vim
-      - tree
       - htop
+      - ntp
+      - tree
+      - vim
