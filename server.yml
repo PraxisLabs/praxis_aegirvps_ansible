@@ -45,4 +45,4 @@
 
 - hosts: auto-deploy-d8
   roles:
-    - { role: auto-deploy, platform_name: drupal8, makefiles_repo: "https://github.com/PraxisLabs/drupal8_makefiles.git", makefile_name: drupal8.make, release_feed: "https://www.drupal.org/node/3060/release/feed?api_version[0]=7234", tags: auto-deploy }
+    - { role: auto-deploy, platform_name: drupal8, makefiles_repo: "https://github.com/PraxisLabs/drupal8_makefiles.git", makefile_name: drupal8.make, release_feed: "https://github.com/PraxisLabs/drupal8_makefiles/tags.atom", tags: auto-deploy }
