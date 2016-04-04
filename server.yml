@@ -2,6 +2,7 @@
 - hosts: all
   roles:
     - common
+  sudo: yes
 
 - hosts: mysql-servers
   roles:
@@ -10,39 +11,3 @@
 - hosts: aegir3
   roles:
     - aegir3
-
-- hosts: munin-hosts
-  roles:
-    - munin-node
-
-- hosts: munin-servers
-  roles:
-    - munin-server
-
-- hosts: nagios-servers
-  roles:
-    - nagios-server
-
-- hosts: nagios-hosts
-  roles:
-    - nagios-host
-
-- hosts: auto-deploy-goo
-  roles:
-    - { role: auto-deploy, platform_name: getopenoutreach, makefiles_repo: "https://github.com/PraxisLabs/getopenoutreach_makefiles.git", makefile_name: getopenoutreach.make, release_feed: "https://github.com/PraxisLabs/getopenoutreach_makefiles/releases.atom", tags: auto-deploy }
-
-- hosts: auto-deploy-drupal7-basic
-  roles:
-    - { role: auto-deploy, platform_name: drupal7-basic, makefiles_repo: "https://github.com/PraxisLabs/drupal7-basic.git", makefile_name: drupal-platform.make, release_feed: "https://github.com/PraxisLabs/drupal7-basic/tags.atom", tags: auto-deploy }
-
-- hosts: auto-deploy-openatrium
-  roles:
-    - { role: auto-deploy, platform_name: openatrium, makefiles_repo: "http://git.drupal.org/project/openatrium.git", makefile_name: build-openatrium.make, release_feed: "https://www.drupal.org/node/681432/release/feed", tags: auto-deploy }
-
-- hosts: auto-deploy-civicrm
-  roles:
-    - { role: auto-deploy, platform_name: civicrm, makefiles_repo: "https://github.com/PraxisLabs/civicrm_makefiles.git", makefile_name: build-civicrm.make, release_feed: "https://github.com/PraxisLabs/civicrm_makefiles/tags.atom", tags: auto-deploy }
-
-- hosts: auto-deploy-d8
-  roles:
-    - { role: auto-deploy, platform_name: drupal8, makefiles_repo: "https://github.com/PraxisLabs/drupal8_makefiles.git", makefile_name: drupal8.make, release_feed: "https://github.com/PraxisLabs/drupal8_makefiles/tags.atom", tags: auto-deploy }

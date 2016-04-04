@@ -6,5 +6,6 @@
       - git
       - htop
       - ntp
+      - npm
       - tree
       - vim
