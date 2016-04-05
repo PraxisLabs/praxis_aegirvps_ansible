@@ -1,0 +1,18 @@
+---
+  - name: Check if custom hostmaster modules are installed
+    shell: "[ -d `/var/aegir/hostmaster-*/sites/{{ inventory_hostname }}/modules/hosting_saas`]"
+    register: aegir_custom_modules_exist
+    failed_when: '"found" in aegir_custom_modules_exist.stderr'
+    ignore_errors: yes
+
+  # Download the saas modules and enable them.
+  # largely based on https://praxis.coop/en/blog/automated-drupal-saas-aegir3
+  # When the modules are consolidated we can simplify this a lot.
+  # See https://www.drupal.org/node/2698053
+  - name: Download the SaaS modules from drupal.org
+    shell: drush @hostmaster dl hosting_variables hosting_saas
+    when: aegir_custom_modules_exist|failed
+    sudo: yes
+    sudo_user: aegir
+  # TODO: Clone hosting_saas_utils from github
+  # TODO: Clone hosting_rest_api from github
