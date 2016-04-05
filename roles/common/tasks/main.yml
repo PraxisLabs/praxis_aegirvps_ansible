@@ -2,6 +2,7 @@
   - name: Install common packages
     apt: pkg={{ item }} state=installed update_cache=true
     with_items:
+      - curl
       - fail2ban
       - git
       - htop

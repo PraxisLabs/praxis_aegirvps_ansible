@@ -10,4 +10,4 @@
 
 - hosts: aegir3
   roles:
-    - aegir3
+    - aegir3-nginx

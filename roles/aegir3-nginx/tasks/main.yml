@@ -5,17 +5,20 @@
     ignore_errors: True
     register: aegir_user_exists
 
+  - name: Preseed Aegir web server
+    shell: echo "debconf aegir/webserver string nginx" | debconf-set-selections
+    when: aegir_user_exists|failed
   - name: Preseed Aegir hostmaster site url
     shell: echo "debconf aegir/site string {{ inventory_hostname }}" | debconf-set-selections
     when: aegir_user_exists|failed
   - name: Preseed Aegir hostmaster db_host
-    shell: echo "debconf aegir/db_host string 127.0.0.1" | debconf-set-selections
+    shell: echo "debconf aegir/db_host string {{ aegir_mysql_host }}" | debconf-set-selections
     when: aegir_user_exists|failed
   - name: Preseed Aegir hostmaster db_user
-    shell: echo "debconf aegir/db_user string root" | debconf-set-selections
+    shell: echo "debconf aegir/db_user string {{ aegir_mysql_user }}" | debconf-set-selections
     when: aegir_user_exists|failed
   - name: Preseed Aegir hostmaster db_password
-    shell: echo "debconf aegir/db_password password `cat /root/.mysql.root`" | debconf-set-selections
+    shell: echo "debconf aegir/db_password password {{ aegir_mysql_password }}" | debconf-set-selections
     when: aegir_user_exists|failed
 
   - name: Install apt repo management packages
@@ -38,9 +41,10 @@
     when: aegir3keyinstalled|success
     register: aegir3repoinstalled
 
+  # We need to specify nginx so it does "apt-get install nginx aegir3", otherwise the aegir3 package would install apache2
   - name: Install Aegir3
-    apt: pkg=aegir3 state=installed update_cache=true
+    apt: pkg='aegir3,nginx,php5-fpm' state=installed update_cache=true
     register: aegir3installed
     when: aegir3keyinstalled|success
     notify:
-      - Restart Apache
+      - Restart webserver

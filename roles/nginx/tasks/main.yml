@@ -1,9 +1,9 @@
 ---
-  - name: Install Apache
-    apt: pkg=apache2 state=installed update_cache=true
-    register: apache2installed
+  - name: Install nginx
+    apt: pkg=nginx state=installed update_cache=true
+    register: nginxinstalled
     notify:
-     - Start Apache
+     - Start webserver
 
   - name: Install PHP packages
     apt: pkg={{item}} state=installed update_cache=true
@@ -13,7 +13,7 @@
       - php5-curl
       - php5-gd
       - php5-mysql
-    when: apache2installed|success
+    when: nginxinstalled|success
     register: php5installed
     notify:
-     - Start Apache
+     - Start webserver
