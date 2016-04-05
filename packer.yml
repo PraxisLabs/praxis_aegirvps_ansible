@@ -1,8 +1,0 @@
----
-- hosts: all
-  roles:
-    - common
-    - nginx
-  sudo: yes
-
-# This is the file used to build the templates. We can't actually install Aegir in the template since that would require re-installing Aegir anyway.
