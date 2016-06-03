@@ -10,7 +10,7 @@
 
   - name: Enable Apache vhost
     when: muninserverinstalled|success
-    file: src=/etc/munin/apache.conf dest=/etc/apache2/conf.d/munin owner=root group=root state=link
+    file: src=/etc/munin/apache.conf dest=/etc/apache2/conf-enabled/munin.conf owner=root group=root state=link
     notify:
       - Reload Apache
 
