@@ -4,6 +4,11 @@ ans-client2.local ansible_ssh_host=192.168.10.70
 ans-client3.local ansible_ssh_host=192.168.10.80
 ans-server.local ansible_ssh_host=192.168.10.40 ansible_connection=local
 
+[apache2:vars]
+ssh_users:
+  - name: gboudrias
+    key: "{{ lookup('file', 'gboudrias_authorized_key') }}"
+
 [aegir3]
 ans-server.local
 ans-client.local
