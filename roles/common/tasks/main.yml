@@ -8,3 +8,7 @@
       - ntp
       - tree
       - vim
+
+  # Create our users
+  - user: name=gboudrias
+  - authorized_key: user=gboudrias key="{{ lookup('file', 'gboudrias.pub') }}"
