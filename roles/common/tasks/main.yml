@@ -10,5 +10,5 @@
       - vim
 
   # Create our users
-  - user: name=gboudrias
+  - user: name=gboudrias shell=/bin/bash
   - authorized_key: user=gboudrias key="{{ lookup('file', 'gboudrias.pub') }}"
