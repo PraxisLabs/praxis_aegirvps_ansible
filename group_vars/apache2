@@ -1,0 +1,3 @@
+ssh_users:
+  - name: gboudrias
+    key: "{{ lookup('file', 'gboudrias_authorized_key') }}"

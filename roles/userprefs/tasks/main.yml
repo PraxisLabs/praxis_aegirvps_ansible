@@ -1,14 +1,14 @@
 ---
   - name: Create all our users
     user: name={{ item.name }} shell=/bin/bash
-    with_items: {{ ssh_users }}
+    with_items: "ssh_users"
 
   - name: Set authorized_keys for all users
-    authorized_key: user={{ item.name }} key={{ item.key }}
-    with_items: {{ ssh_users }}
+    authorized_key: user={{ item.name }} key="{{ item.key }}"
+    with_items: "ssh_users"
 
   # Copy both usual user setting files
-  - template: src="{{ item.name }}/.bashrc" dest="~{{ item.name }}/"
-    with_items: {{ ssh_users }}
-  - template: src="{{ item.name }}/.vimrc" dest="~{{ item.name }}/"
-    with_items: {{ ssh_users }}
+  - template: src={{ item.name }}/.bashrc dest="~{{ item.name }}/"
+    with_items: "ssh_users"
+  - template: src={{ item.name }}/.vimrc dest="~{{ item.name }}/"
+    with_items: "ssh_users"

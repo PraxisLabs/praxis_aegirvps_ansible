@@ -1,3 +1,6 @@
+#
+# MANAGED IN ANSIBLE, DO NOT MODIFY
+#
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -87,8 +90,6 @@ fi
 
 # some more ls aliases
 alias ll='ls -alh'
-#alias la='ls -A'
-#alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
