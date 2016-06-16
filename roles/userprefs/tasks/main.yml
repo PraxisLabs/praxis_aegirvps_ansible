@@ -10,5 +10,11 @@
   # Copy both usual user setting files
   - template: src={{ item.name }}/.bashrc dest="~{{ item.name }}/"
     with_items: "ssh_users"
+    changed_when: False
   - template: src={{ item.name }}/.vimrc dest="~{{ item.name }}/"
     with_items: "ssh_users"
+    changed_when: False
+
+  - name: Make sudoers files
+    template: src=sudoer.j2 dest="/etc/sudoers.d/root-{{ item }}"
+    with_items: "ssh_sudo_users"
