@@ -9,6 +9,7 @@
     apt: pkg={{item}} state=installed update_cache=true
     with_items:
       - curl
+      - php-apc
       - php5
       - php5-curl
       - php5-gd

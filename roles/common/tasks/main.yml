@@ -2,9 +2,12 @@
   - name: Install common packages
     apt: pkg={{ item }} state=installed update_cache=true
     with_items:
+      - aptitude
+      - etckeeper
       - fail2ban
       - git
       - htop
       - ntp
+      - mailutils
       - tree
       - vim
